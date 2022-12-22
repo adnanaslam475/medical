@@ -1,0 +1,65 @@
+import { useMemo } from "react";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
+import {} from "../../../Redux/Store";
+import { login, signUp } from "../../../Redux/Services/authService.js";
+import {
+  encryptedStorage,
+  decryptedStorage,
+} from "../../../Redux/Services/cryptoJS";
+
+console.log("descripted--------", decryptedStorage("user", true));
+
+const getDefaultUser = () => {
+  return JSON.parse(localStorage.getItem("user") || "{}");
+};
+
+const initialState = {
+  user: localStorage.getItem("user") ? getDefaultUser() : {},
+  signUpResponse: {},
+  error: {},
+};
+
+export const authLogin = createAsyncThunk("auth/login", async (payload) => {
+  return login(payload);
+});
+
+export const authSignup = createAsyncThunk("auth/signup", async (payload) => {
+  return signUp(payload);
+});
+
+const firebaseAuthSlice = createSlice({
+  name: "user",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(authLogin.fulfilled, (state, action) => {
+      state.user = action.payload.data;
+    });
+    builder.addCase(authSignup.fulfilled, (state, action) => {
+      state.signUpResponse = action.payload.data;
+    });
+  },
+});
+
+export const selectUser = (state) => {
+  return state.auth.user;
+};
+
+export const useUser = () => {
+  const user = useSelector(selectUser);
+  // return user;
+  localStorage.setItem("user", JSON.stringify(user));
+  return useMemo(() => ({ user }), [user]);
+};
+
+export default firebaseAuthSlice.reducer;
+
+export const selectSignupResponse = (state) => state.auth.signUpResponse;
+
+export const useSignupResponse = () => {
+  const signUpResponse = useSelector(selectSignupResponse);
+  return useMemo(() => ({ signUpResponse }), [signUpResponse]);
+};
+
+export const selectFirebaseAuthList = (state) => state.auth;
