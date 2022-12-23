@@ -4,7 +4,7 @@
 @import "../src/styles/settings/variable.scss";
 @import "../src/styles/settings/variable.scss";
 
-body * {
+body *:not(a, i) {
   margin: 0;
   font-family: "Titillium Web", sans-serif !important;
   -webkit-font-smoothing: antialiased;

@@ -3,8 +3,10 @@ import axios from "axios";
 import { DangerLeft } from "./toaster-service.js";
 
 export const apiInstance = axios.create({
-    baseURL: "https://onecloudapi.azurewebsites.net/",
+    baseURL: "https://onecloudapi.azurewebsites.net/api/v1/account/loginDummy?userID=abc",
 });
+
+// https://onecloudapi.azurewebsites.net/api/v1/account/AccessResource
 
 apiInstance.interceptors.request.use(
     function (config) {

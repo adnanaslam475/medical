@@ -9,6 +9,7 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { Store } from './Redux/Store.js';
 import WebFont from 'webfontloader';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 WebFont.load({
   google: {

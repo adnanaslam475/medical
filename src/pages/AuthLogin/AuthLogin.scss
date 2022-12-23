@@ -8,8 +8,7 @@
     color: white !important;
     background-color: rgb(45, 56, 94, 0.9) !important;
   }
-  .ant-checkbox-inner {
-  }
+
   input {
     font-size: 16px !important;
   }
@@ -78,5 +77,73 @@
     100% {
       left: -600px !important;
     }
+  }
+
+  .fade-enter {
+    .btn {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+  }
+  .fade-enter-active {
+    .btn {
+      opacity: 1;
+      transform: translateX(0%);
+    }
+  }
+  .fade-exit {
+    .btn {
+      opacity: 1;
+      transform: translateX(0%) !important;
+    }
+  }
+  .fade-exit-active {
+    .btn {
+      opacity: 0;
+      transform: translateX(-100%) !important;
+    }
+  }
+  .fade-enter-active {
+    .btn {
+      transition: opacity 500ms, transform 500ms !important;
+    }
+  }
+  .fade-exit-active {
+    .btn {
+      transition: opacity 500ms, transform 500ms !important;
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////
+
+  .fade-enter {
+    &.btn {
+      opacity: 0;
+      transform: translateX(-100%) !important;
+    }
+  }
+  .fade-enter-active {
+    &.btn {
+      opacity: 1;
+      transform: translateX(0%) !important;
+    }
+  }
+
+  .fade-exit {
+    &.btn {
+      opacity: 1;
+      transform: translateX(0%) !important;
+    }
+  }
+
+  .fade-exit-active {
+    &.btn {
+      opacity: 0;
+      transform: translateX(-100%) !important;
+    }
+  }
+  .fade-enter-active .btn,
+  .fade-exit-active .btn {
+    transition: opacity 500ms, transform 500ms !important;
   }
 }

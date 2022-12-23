@@ -1,0 +1,23 @@
+.fadeenter {
+  opacity: 0;
+  transform: translateX(-100%) !important;
+}
+
+.fadeenteractive {
+  opacity: 1;
+  transform: translateX(0%) !important;
+}
+
+.fadeexit {
+  opacity: 1;
+  transform: translateX(-100%) !important;
+}
+
+.fadeexitactive {
+  opacity: 0;
+  transform: translateX(-100%) !important;
+}
+.fadeenteractive .btn,
+.fadeexitactive .btn {
+  transition: opacity 500ms, transform 500ms !important;
+}

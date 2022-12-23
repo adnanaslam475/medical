@@ -25,12 +25,11 @@ import {
   Dropdown,
   Space,
 } from "antd";
-import NoticeIcon from "ant-design-pro/lib/NoticeIcon";
 
 import { IconButton } from "@mui/material";
 import logo from "../assets/images/brand-logo.png";
 import { ArrowLeft, ArrowRight, Search } from "@mui/icons-material";
-import { borderRadius } from "@mui/system";
+
 const { Header, Sider, Content } = Layout;
 
 const App = () => {
@@ -182,7 +181,7 @@ const App = () => {
                   style={{
                     width: "40px",
                     height: "40px",
-                    borderRadius: "100%",
+                    borderRadius: "pa100%",
                   }}
                   className="ml-1 w-10 h-10 cursor-pointer"
                   src={logo}
