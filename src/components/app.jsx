@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useId } from "react";
 import "./index.scss";
 import {
   BellOutlined,
@@ -14,7 +14,6 @@ import {
   LogoutOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
-import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import DehazeIcon from "@mui/icons-material/Dehaze";
 import {
   Button,
@@ -28,7 +27,9 @@ import {
 
 import { IconButton } from "@mui/material";
 import logo from "../assets/images/brand-logo.png";
-import { ArrowLeft, ArrowRight, Search } from "@mui/icons-material";
+// import { ArrowLeft, ArrowRight, Search } from "@mui/icons-material";
+import { MENUITEMS } from "../Layouts/Sidebar/Sidemenu";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 
@@ -37,18 +38,19 @@ const App = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-
-  const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
-    (icon, index) => {
-      const key = String(index + 1);
-      return {
-        key: `sub${key}`,
-        icon: React.createElement(icon),
-        label: `subnav ${key}`,
-        children: new Array(4).fill(null).map((_, j) => {
-          const subKey = index * 4 + j + 1;
+  const navigate = useNavigate();
+  const items2 = MENUITEMS[0].Items.map((item, index) => {
+    const key = String(index + 1);
+    return {
+      key: `subbbbb${key}`,
+      icon: React.createElement(item.icon),
+      label: item.title,
+      children: Array(item.children?.length || 0)
+        .fill(item.children?.map((val) => val.title))
+        .map((v, i) => {
+          const p = item.children?.map((val) => val.path);
           return {
-            key: subKey,
+            key: p[i],
             icon: (
               <span
                 style={{
@@ -60,13 +62,12 @@ const App = () => {
                 className={`dot`}
               />
             ),
-            label: `option${subKey}`,
+            label: v[i] || "",
           };
         }),
-      };
-    }
-  );
-  console.log("collapsed", collapsed);
+    };
+  });
+
   return (
     <Layout className="h-max layout" style={{ height: "100vh" }}>
       <Sider
@@ -75,7 +76,6 @@ const App = () => {
         style={{
           background: colorBgContainer,
           borderRight: "0.5px solid lightgray",
-          // minWidth: "240px",
         }}
         className={`w-80 ${collapsed ? "sidebar" : ""}`}
         collapsed={collapsed}
@@ -83,12 +83,16 @@ const App = () => {
         <img className="logo" src={logo} alt="" />
         <Menu
           theme="light"
+          className="text-sm sidebar_menu"
           mode="inline"
-          defaultSelectedKeys={["1"]}
           // expandIcon={() => {
           //   return <RightOutlined className="text-xs" />;
           // }}
-          // onSelect={(e) => console.log("e----------->", e)}
+          onClick={(e) => {
+            e.domEvent.preventDefault();
+            e.domEvent.stopPropagation();
+            navigate(e.key);
+          }}
           items={items2}
         />
       </Sider>
@@ -103,32 +107,33 @@ const App = () => {
           }}
         >
           <IconButton
-            size="large"
+            size="medium"
             disableFocusRipple
             disableRipple
             disableTouchRipple
             onClick={() => setCollapsed(!collapsed)}
           >
-            <DehazeIcon className="toggle-icon ml-3 m-auto" fontSize="large" />
+            <DehazeIcon className="toggle-icon m-auto" fontSize="" />
           </IconButton>
           <Button
             onClick={() => ""}
-            className="hover:bg-blue-600 hover:text-white rounded-none"
+            color="primary"
+            className=" hover:text-white rounded-none newtask"
           >
             + New Tasks
           </Button>
-          <div className="h-full w-60 absolute top-0 right-0 flex items-center justify-between">
+          <div className="h-full w-48 absolute top-0 right-0 flex items-center justify-between">
             <SearchOutlined
-              size={50}
-              className="text-4xl text-gray-600 cursor-pointer"
+              size={40}
+              className="text-2xl text-gray-600 cursor-pointer"
             />
             <div className="relative leading-3">
-              <span className="h-7 w-7 text-white p-2 rounded-full bg-red-500 absolute right-0 translate-x-2 -translate-y-2 text-center flex items-center justify-center">
+              <span className="h-5 w-5 text-white p-2 rounded-full bg-red-500 absolute right-0 translate-x-2 -translate-y-1 text-center flex items-center justify-center">
                 2
               </span>
               <BellOutlined
-                size={50}
-                className="text-4xl ml-5 text-gray-600 cursor-pointer"
+                size={40}
+                className="text-2xl ml-5 text-gray-600 cursor-pointer"
               />
             </div>
 
@@ -175,13 +180,13 @@ const App = () => {
               }}
               trigger={["click"]}
             >
-              <span className="w-32 flex items-center justify-end text-center">
+              <span className="w-28 flex items-center justify-end text-center">
                 <p className="">Nick</p>
                 <img
                   style={{
                     width: "40px",
                     height: "40px",
-                    borderRadius: "pa100%",
+                    borderRadius: "100%",
                   }}
                   className="ml-1 w-10 h-10 cursor-pointer"
                   src={logo}
@@ -208,7 +213,7 @@ const App = () => {
             background: colorBgContainer,
           }}
         >
-          Content
+          <Outlet />
         </Content>
       </Layout>
     </Layout>

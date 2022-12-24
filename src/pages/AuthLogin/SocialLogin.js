@@ -7,7 +7,7 @@ function SocialLoginButtons() {
             <div className="m-3 border-black">
                 <a
                     style={{
-                        backgroundColor: '#3B5998',
+                        backgroundColor: '#3b5998',
                     }}
                     className="fb btn rounded-md p-3 mr-3">
                     <i
@@ -18,7 +18,7 @@ function SocialLoginButtons() {
                     />
                 </a>
                 <a style={{
-                    backgroundColor: 'lightblue',
+                    backgroundColor: '#00aced',
                     width: '100px'
                 }} className="twitter btn rounded-md p-3 mr-3">
                     <i style={{
@@ -30,7 +30,7 @@ function SocialLoginButtons() {
                 }} className="rounded-md p-3">
                     <i style={{
                         width: '100px',
-                    }} className="fa fa-google" />
+                    }} className="fa fa-google-plus" />
                 </a>
             </div>
         </div >

@@ -6,6 +6,10 @@ export const apiInstance = axios.create({
     baseURL: "https://onecloudapi.azurewebsites.net/api/v1/account/loginDummy?userID=abc",
 });
 
+
+// superadminss@lms.com
+// http://gtipms-env.eba-kx774cjf.us-east-1.elasticbeanstalk.com/
+// https://onecloudapi.azurewebsites.net/api/v1/account/loginDummy?userID=abc
 // https://onecloudapi.azurewebsites.net/api/v1/account/AccessResource
 
 apiInstance.interceptors.request.use(

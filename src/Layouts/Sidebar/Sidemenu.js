@@ -1,10 +1,25 @@
+import {
+    BellOutlined,
+    LaptopOutlined,
+    NotificationOutlined,
+    // SearchOutlined,
+    // ArrowRightOutlined,
+    // UserOutlined,
+    // RightOutlined,
+    // LeftOutlined,
+    // UpOutlined,
+    // DownOutlined,
+    // LogoutOutlined,
+    SettingOutlined,
+} from "@ant-design/icons";
+
 export const MENUITEMS = [
     {
         // menutitle: "MAIN",
         Items: [
             {
                 path: `/communication`,
-                icon: "ion-chatbubbles",
+                icon: BellOutlined,
                 type: "link",
                 active: false,
                 selected: false,
@@ -12,23 +27,56 @@ export const MENUITEMS = [
             },
             {
                 title: "Setup",
-                icon: "fe fe-slack",
+                icon: LaptopOutlined,
                 type: "sub",
-                Name: "",
-                Names: "",
                 active: false,
                 selected: false,
                 children: [
                     {
-                        path: `/setup/businesssetup`,
+                        path: `/first`,
                         type: "link",
+                        icon: NotificationOutlined,
                         active: false,
                         selected: false,
-                        title: "Business Setup",
+                        title: "adnan",
+                    },
+                    {
+                        path: `/second/first`,
+                        type: "link",
+                        icon: SettingOutlined,
+                        active: false,
+                        selected: false,
+                        title: "waqar",
+                    }
+                ],
+            },
+
+
+            {
+                title: "New setup",
+                icon: LaptopOutlined,
+                type: "sub",
+                active: false,
+                selected: false,
+                children: [
+                    {
+                        path: `/first`,
+                        type: "link",
+                        icon: NotificationOutlined,
+                        active: false,
+                        selected: false,
+                        title: "adnan",
+                    },
+                    {
+                        path: `/second/first`,
+                        type: "link",
+                        icon: SettingOutlined,
+                        active: false,
+                        selected: false,
+                        title: "waqar",
                     }
                 ],
             },
         ],
     },
-
 ];

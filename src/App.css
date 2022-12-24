@@ -1,23 +1,55 @@
-.fade-enter .btn {
-  opacity: 0 !important;
-  transform: translateX(-100%) !important;
+.newtask:hover {
+  color: white;
+  background-color: blue;
+}
+.fa-facebook,
+.fa-google-plus,
+.fa-twitter::before {
+  color: white;
 }
 
-.fade-enter-active .btn {
-  opacity: 1 !important;
-  transform: translateX(0%) !important;
+.trans-0 {
+  transform: translateX(0%);
 }
 
-.fade-exit .btn {
-  opacity: 1 !important;
-  transform: translateX(0%) !important;
+.trans-200 {
+  transform: translateX(-200%);
 }
 
-.fade-exit-active .btn {
-  opacity: 0 !important;
-  transform: translateX(-100%) !important;
+.enter {
+  animation-direction: normal;
+  transform: translateX(0%);
+  animation-timing-function: ease;
+  animation: enteranim 1s;
+  animation-duration: 1s;
 }
-.fade-enter-active .btn,
-.fade-exit-active .btn {
-  transition: opacity 500ms, transform 500ms !important;
+
+.exit {
+  transform: translateX(-200%);
+  animation-delay: 0.5s;
+  animation-timing-function: ease;
+  animation: exitanim 1s;
+  animation-duration: 1s;
+}
+
+@keyframes enteranim {
+  from {
+    transform: translateX(-200%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes exitanim {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-200%);
+  }
+}
+
+.ant-dropdown-menu-item{
+  padding: 0%;
 }

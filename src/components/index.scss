@@ -2,6 +2,12 @@
   aside {
     min-width: 240px !important;
   }
+  .sidebar_menu {
+    svg {
+      font-size: 16px;
+      color: #7081b9;
+    }
+  }
   .sidebar {
     width: 0px !important;
     flex: 0 0 0px !important;
@@ -17,6 +23,7 @@
   .ant-menu-inline {
     background-color: unset !important;
   }
+
   .ant-menu-item-selected {
     color: #1761fd !important;
     background-color: unset !important;
@@ -48,4 +55,11 @@
   height: 32px;
   margin: 16px;
   background: rgba(255, 255, 255, 0.3);
+}
+
+@media only screen and (max-width: 600px) {
+  .aside {
+    width: 0%;
+    background-color: lightgray;
+  }
 }

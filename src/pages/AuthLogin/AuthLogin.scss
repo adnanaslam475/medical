@@ -10,24 +10,16 @@
   }
 
   input {
-    font-size: 16px !important;
+    font-size: 18px !important;
+    // -webkit-text-security: circle a!important;
   }
-  .omb_btn-facebook {
-    min-width: 100px;
-    background: #3b5998 !important;
-  }
-  .omb_btn-twitter {
-    min-width: 100px;
-    background: #00aced !important;
-  }
-  .omb_btn-google {
-    min-width: 100px;
-    background: #c32f10 !important;
+  input ::before {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.3) !important;
   }
 
   .wrapper {
     position: relative;
-    overflow: hidden;
+    // overflow: hidden;
     width: 600px;
   }
 
@@ -145,5 +137,17 @@
   .fade-enter-active .btn,
   .fade-exit-active .btn {
     transition: opacity 500ms, transform 500ms !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .auth_login {
+  }
+
+  .bg-image {
+    display: none;
+  }
+  .auth_container > * {
+    // position: unset;
   }
 }

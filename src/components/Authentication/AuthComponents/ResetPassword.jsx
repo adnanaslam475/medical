@@ -8,17 +8,21 @@ const { Title, Link, Paragraph } = Typography;
 function ForgotPassword({
   setView,
   onSlide,
-  showPassword,
-  onFinish,
-  setShowPassword,
+  view,
+  // showPassword,
+  // onFinish,
+  // setShowPassword,
 }) {
+  
   return (
     <div
       style={{
         width: "100%",
       }}
+      className={`absolute top-0 text-left pt-16 ${
+        view == "password" ? "enter" : "exit"
+      } trans-200`}
       id="password_container"
-      className="text-left pt-16"
     >
       <Title level={3}>Recover your password</Title>
       <Paragraph>
@@ -58,7 +62,7 @@ function ForgotPassword({
         className=""
         onClick={() => {
           setView("signup");
-          onSlide()
+          onSlide();
         }}
       >
         Don't have an account?
