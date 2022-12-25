@@ -116,7 +116,6 @@ export function Centerwarning() {
   );
 }
 
-// Side Alerts Notifications
 
 export function SuccessLeft() {
   const Toastslidewarn = () =>
