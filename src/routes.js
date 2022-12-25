@@ -13,7 +13,7 @@ const AuthLogin = lazy(() => import("./pages/AuthLogin/AuthLogin.jsx"));
 
 const RoutesMain = () => {
   const { user } = useUser();
-  console.log('useUser', user);
+  // console.log('useUser', user);
 
   return (
     <Fragment>

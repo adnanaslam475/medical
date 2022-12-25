@@ -5,6 +5,7 @@ import { Col, Row, Typography } from "antd";
 //   CSSTransition as ReactTransition,
 // } from "react-transition-group";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import logo from "../../assets/images/brand-logo.png";
 import "./AuthLogin.scss";
 import "./s.css";
@@ -12,7 +13,6 @@ import Signup from "../../components/Authentication/AuthComponents/Signup";
 import ResetPassword from "../../components/Authentication/AuthComponents/ResetPassword";
 import LoginComponent from "../../components/Authentication/AuthComponents/Login";
 import "../../../src/App.css";
-import { useDispatch } from "react-redux";
 import {
   authLogin,
   authSignup,
@@ -23,9 +23,6 @@ function Login() {
   const nav = useNavigate();
   const [state, setState] = React.useState(true);
   const [view, setView] = React.useState("login");
-  // const helloRef = React.useRef(null);
-  // const goodbyeRef = React.useRef(null);
-  // const nodeRef = "state" ? goodbyeRef : helloRef;
 
   const dispatch = useDispatch();
 
