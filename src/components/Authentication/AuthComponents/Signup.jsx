@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Typography } from "antd";
 
 import {
@@ -8,6 +8,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { object, string } from "yup";
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -20,8 +21,8 @@ const schema = object().shape({
 });
 
 function Signup({ setView, onSlide, view, onFinish }) {
-  const { register, handleSubmit, formState } = useForm({
-    validationSchema: schema,
+  const { register, handleSubmit, formState, reset } = useForm({
+    resolver: yupResolver(schema),
   });
   console.log("Signupview", view);
 
@@ -29,12 +30,18 @@ function Signup({ setView, onSlide, view, onFinish }) {
 
   const { isSubmitting, errors } = formState;
 
+  useEffect(() => {
+    reset();
+  }, [view]);
+
   return (
     <div
       style={{
         width: "100%",
       }}
-      className={`${view == "signup" ? "enter" : "exit"} absolute top-0 trans-200`}
+      className={`${
+        view == "signup" ? "enter" : "exit"
+      } absolute top-0 trans-200`}
       id="signup_container"
     >
       <Title className="mt-6" level={3}>
@@ -92,7 +99,6 @@ function Signup({ setView, onSlide, view, onFinish }) {
         className="leading-10"
         onClick={() => {
           setView("login");
-          onSlide();
         }}
       >
         Already have an account?

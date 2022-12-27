@@ -1,14 +1,10 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row, Typography } from "antd";
-// import {
-//   SwitchTransition,
-//   CSSTransition as ReactTransition,
-// } from "react-transition-group";
+
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import logo from "../../assets/images/brand-logo.png";
 import "./AuthLogin.scss";
-import "./s.css";
 import Signup from "../../components/Authentication/AuthComponents/Signup";
 import ResetPassword from "../../components/Authentication/AuthComponents/ResetPassword";
 import LoginComponent from "../../components/Authentication/AuthComponents/Login";
@@ -21,8 +17,7 @@ const { Title, Paragraph } = Typography;
 
 function Login() {
   const nav = useNavigate();
-  const [state, setState] = React.useState(true);
-  const [view, setView] = React.useState("login");
+  const [view, setView] = useState("login");
 
   const dispatch = useDispatch();
 
@@ -58,7 +53,6 @@ function Login() {
     }
   };
 
-  const onSlide = () => setState((s) => !s);
   useEffect(() => {
     document.getElementById("signup_container").classList.remove("exit");
     document.getElementById("login_container").classList.remove("enter");
@@ -82,24 +76,9 @@ function Login() {
             <img src={logo} width="150" alt="brand-logo" />
           </div>
           <div className="auth_container relative">
-            <LoginComponent
-              setView={setView}
-              onSlide={onSlide}
-              onFinish={onLogin}
-              view={view}
-            />
-            <Signup
-              setView={setView}
-              view={view}
-              onSlide={onSlide}
-              onFinish={onRegister}
-            />
-            <ResetPassword
-              view={view}
-              setView={setView}
-              onSlide={onSlide}
-              onFinish={onReset}
-            />
+            <LoginComponent setView={setView} onFinish={onLogin} view={view} />
+            <Signup setView={setView} view={view} onFinish={onRegister} />
+            <ResetPassword view={view} setView={setView} onFinish={onReset} />
           </div>
         </Col>
         <Col

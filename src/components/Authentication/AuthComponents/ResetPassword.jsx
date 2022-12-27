@@ -1,19 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Button, Typography } from "antd";
 import { FormControl, TextField } from "@mui/material";
+import { useForm } from "react-hook-form";
 // import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { object, string } from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const { Title, Link, Paragraph } = Typography;
 
-function ForgotPassword({
-  setView,
-  onSlide,
-  view,
-  // showPassword,
-  // onFinish,
-  // setShowPassword,
-}) {
-  
+const schema = object().shape({
+  email: string().required("Email is required"),
+});
+
+function ForgotPassword({ setView, view }) {
+  const { register, handleSubmit, formState, reset } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  useEffect(() => {
+    reset();
+  }, [view]);
+
   return (
     <div
       style={{
@@ -51,7 +58,6 @@ function ForgotPassword({
       <Link
         className="leading-10"
         onClick={() => {
-          onSlide();
           setView("login");
         }}
       >
@@ -62,7 +68,6 @@ function ForgotPassword({
         className=""
         onClick={() => {
           setView("signup");
-          onSlide();
         }}
       >
         Don't have an account?

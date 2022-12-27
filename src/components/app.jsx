@@ -2,15 +2,8 @@ import React, { useState, useId } from "react";
 import "./index.scss";
 import {
   BellOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
   SearchOutlined,
-  ArrowRightOutlined,
   UserOutlined,
-  RightOutlined,
-  LeftOutlined,
-  UpOutlined,
-  DownOutlined,
   LogoutOutlined,
   SettingOutlined,
 } from "@ant-design/icons";

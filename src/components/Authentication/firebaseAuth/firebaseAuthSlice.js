@@ -3,19 +3,16 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { } from "../../../Redux/Store";
 import { login, signUp } from "../../../Redux/Services/authService.js";
-import {
-  encryptedStorage,
-  decryptedStorage,
-} from "../../../Redux/Services/cryptoJS";
+// import {
+//   encryptedStorage,
+//   decryptedStorage,
+// } from "../../../Redux/Services/cryptoJS";
+
 import { AUTH_LOGIN, AUTH_SIGN_UP } from "../../ConstAPI/ConstAPI";
 
 const getDefaultUser = () => {
   return JSON.parse(localStorage.getItem("user") || "{}");
 };
-
-console.log("descripted--------",
-  //  decryptedStorage("user", true),
-  getDefaultUser());
 
 const initialState = {
   user: localStorage.getItem("user") ? getDefaultUser() : {},

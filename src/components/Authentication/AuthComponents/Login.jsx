@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Typography, Checkbox } from "antd";
 import {
   FormControl,
@@ -7,6 +7,7 @@ import {
   TextField,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { yupResolver } from "@hookform/resolvers/yup";
 import SocialLoginButtons from "../../../pages/AuthLogin/SocialLoginButtons.js";
 import { useForm } from "react-hook-form";
 import { object, string } from "yup";
@@ -14,20 +15,19 @@ import { object, string } from "yup";
 const { Title, Link, Paragraph } = Typography;
 
 const schema = object().shape({
-  email: string().required("Username is required"),
+  email: string().required("Email is required"),
   password: string().required("Password is required"),
 });
 
 function Login({ setView, onSlide, onFinish, view }) {
   const [showPassword, setShowPassword] = useState(false);
 
-  const { register, formState, handleSubmit } = useForm({
-    validationSchema: schema,
+  const { register, formState, handleSubmit, setError, reset } = useForm({
+    resolver: yupResolver(schema),
+    // validationSchema: schema,
   });
 
   const { isSubmitting, errors, isLoading } = formState;
-
-  console.log("errorr", errors);
 
   const loginsubmit = async (data) => {
     console.log("data", data);
@@ -52,6 +52,10 @@ function Login({ setView, onSlide, onFinish, view }) {
     }
   };
 
+  useEffect(() => {
+    reset();
+  }, [view]);
+
   return (
     <div
       id="login_container"
@@ -67,7 +71,6 @@ function Login({ setView, onSlide, onFinish, view }) {
         <Link
           onClick={() => {
             setView("signup");
-            onSlide();
           }}
         >
           Sign Up Free!
@@ -79,7 +82,7 @@ function Login({ setView, onSlide, onFinish, view }) {
         <span className="text-gray-400 ml-5 mr-5"> Or</span>{" "}
         <span className="border-b-2 w-full" />
       </div>
-      <form onSubmit={handleSubmit(loginsubmit)}>
+      <form onSubmit={handleSubmit(loginsubmit, setError)}>
         <FormControl margin="normal" fullWidth>
           <TextField
             placeholder="Email address"
@@ -89,7 +92,9 @@ function Login({ setView, onSlide, onFinish, view }) {
             id="email"
             helperText={errors?.email ? errors.email.message : ""}
             error={!!errors?.email}
-            {...register("email", { required: true })}
+            {...register("email", {
+              required: true,
+            })}
           />
         </FormControl>
         <FormControl margin="normal" fullWidth>
@@ -102,7 +107,7 @@ function Login({ setView, onSlide, onFinish, view }) {
             error={!!errors?.password}
             helperText={errors?.password ? errors.password.message : ""}
             onChange={() => ""}
-            {...register("password", { required: true })}
+            {...register("password", { required: "Password is Requried" })}
             variant="standard"
             InputProps={{
               endAdornment: (
@@ -123,7 +128,6 @@ function Login({ setView, onSlide, onFinish, view }) {
           <Link
             onClick={() => {
               setView("password");
-              // onSlide();
             }}
           >
             Forgot password?
