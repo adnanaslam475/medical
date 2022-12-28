@@ -17,7 +17,7 @@ import {
 } from "antd";
 
 import { IconButton } from "@mui/material";
-import logo from "../assets/images/brand-logo.png";
+import logo from "../assets/images/logo-original-200.png";
 import { MENUITEMS } from "../Layouts/Sidebar/Sidemenu";
 import { Outlet, useNavigate } from "react-router-dom";
 
@@ -70,7 +70,7 @@ const App = () => {
         className={`w-80 ${collapsed ? "sidebar" : ""}`}
         collapsed={collapsed}
       >
-        <img className="logo" src={logo} alt="" />
+        <div className="sidebar-logo" />
         <Menu
           theme="light"
           className="text-sm sidebar_menu"

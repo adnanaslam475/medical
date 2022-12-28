@@ -14,6 +14,13 @@
     max-width: 0px !important;
     min-width: 0px !important;
   }
+  .sidebar-logo {
+    background-image: url(../assets/images/logo-original-200.png);
+    background-repeat: no-repeat;
+    background-position: 60%;
+    height: 50px;
+    margin-top: 7px;
+  }
   .ant-menu:hover * {
     background-color: white !important;
   }
@@ -54,6 +61,7 @@
 .logo {
   height: 32px;
   margin: 16px;
+  width: 90%;
   background: rgba(255, 255, 255, 0.3);
 }
 

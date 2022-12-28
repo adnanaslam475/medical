@@ -3,7 +3,9 @@ import { Col, Row, Typography } from "antd";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import logo from "../../assets/images/brand-logo.png";
+// import logo from "../../assets/images/brand-logo.png";
+import OneCloudLogo from "../../assets/images/logo-original-200.png";
+// logo-original-1000.png
 import "./AuthLogin.scss";
 import Signup from "../../components/Authentication/AuthComponents/Signup";
 import ResetPassword from "../../components/Authentication/AuthComponents/ResetPassword";
@@ -72,9 +74,10 @@ function Login() {
           xxl={8}
           className="flex flex-col text-center omb_login text-white pr-10 pl-10 wrapper"
         >
-          <div className="brand-logo flex justify-center mt-10">
-            <img src={logo} width="150" alt="brand-logo" />
-          </div>
+          <div
+            className="h-12 brand-logo flex justify-center mt-10"
+          />
+
           <div className="auth_container relative">
             <LoginComponent setView={setView} onFinish={onLogin} view={view} />
             <Signup setView={setView} view={view} onFinish={onRegister} />
@@ -89,13 +92,14 @@ function Login() {
           xl={16}
           xxl={16}
           span={16}
+          // OneCloudLogo
           style={{ backgroundColor: "rgb(45, 56, 94, 0.9)" }}
           className="bg-image flex flex-col text-center justify-center text-white"
         >
-          <Title style={{ color: "white" }}>Welcome to Authfy Account</Title>
+          {/* <Title style={{ color: "white" }}>Welcome to Authfy Account</Title>
           <Paragraph className="text-white">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </Paragraph>
+          </Paragraph> */}
         </Col>
       </Row>
     </>
