@@ -40,7 +40,7 @@ function ReusableSelect({ handleChange, placeholder, value, options }) {
         control: (provided, { isFocused, isDisabled }) => ({
           ...provided,
           height: "60px",
-          width: "200px",
+          // width: "200px",
           // zIndex: 9999,
           borderBottom: isFocused && "none",
           borderRadius: `1rem 1rem ${!isFocused ? "1rem 1rem" : "0 0"}`,
