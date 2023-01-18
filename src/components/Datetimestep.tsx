@@ -7,26 +7,19 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import ReactSelect, { components } from "react-select";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ReusableSelect from "./Select";
-import IlusSecond from "../components/second_back.svg";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+// import ReactSelect, { components } from "react-select";
+// import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+// import IlusSecond from "../components/second_back.svg";
+// import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { colourOptions } from "../utils";
 
-// const DropdownIndicator = (props, open) => {
-//   return (
-//     <components.DropdownIndicator className="" {...props}>
-//       {open ? <KeyboardArrowUpIcon className="" /> : <ExpandMoreIcon />}
-//     </components.DropdownIndicator>
-//   );
-// };
+type Props = { handleChange: (name: string, value: any) => void; values: any };
 
-type Props = { handleChange: any };
+function Datetimestep({ handleChange, values }: Props) {
+  // const [open, setOPen] = useState(false);
 
-function Datetimestep({ handleChange }: Props) {
-  const [open, setOPen] = useState(false);
-
+  console.log("Datetimestep", values);
   return (
     <Grid
       // spacing={1}
@@ -39,16 +32,17 @@ function Datetimestep({ handleChange }: Props) {
       <Grid item xs={12} md={4} sm={6} lg={4} xl={4}>
         <ReusableSelect
           placeholder="select month"
-          value=""
-          handleChange={() => ""}
+          value={values["month"]}
+          onChange={(value: any) => handleChange("month", value.value)}
           options={colourOptions}
         />
       </Grid>
       <Grid item xs={12} md={4} sm={6} lg={4} xl={4}>
         <ReusableSelect
           placeholder="select day"
-          handleChange={() => ""}
-          value=""
+          value={values["day"]}
+          onChange={(value: any) => handleChange("day", value.value)}
+          value={values["day"]}
           options={Array(31)
             .fill()
             .map((_, i) => ({ value: i + 1, label: i + 1 }))}
@@ -59,6 +53,8 @@ function Datetimestep({ handleChange }: Props) {
           className="year"
           size="medium"
           placeholder="YYYY"
+          value={values["year"]}
+          type="number"
           InputProps={{
             style: {
               height: "60px",
@@ -69,7 +65,7 @@ function Datetimestep({ handleChange }: Props) {
           style={{
             borderRadius: "1rem",
           }}
-          onChange={handleChange}
+          onChange={({ target: { value } }) => handleChange("year", value)}
         />
       </Grid>
     </Grid>

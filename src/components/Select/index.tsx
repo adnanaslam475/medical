@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactSelect, { components } from "react-select";
-import { colourOptions } from "../Datetimestep";
+// import { colourOptions } from "../Datetimestep";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IlusSecond from "../components/second_back.svg";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -20,16 +20,18 @@ const DropdownIndicator = (props, open) => {
   );
 };
 
-function ReusableSelect({ handleChange, placeholder, value, options }) {
+function ReusableSelect({ onChange, placeholder, value, options }) {
   const [open, setOPen] = useState(false);
-
+  console.log("ReusableSelect", value);
   return (
     <ReactSelect
       // menuIsOpen
       className="react__select mr-3"
       defaultValue={options[0]}
       placeholder={placeholder}
+      value={options.filter((v) => v.value == value)[0]}
       menuPortalTarget={document.body}
+      onChange={onChange}
       components={{
         DropdownIndicator: (props) => DropdownIndicator(props, open),
       }}

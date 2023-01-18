@@ -45,6 +45,10 @@
 }
 
 .year {
+  overflow: hidden;
+  input {
+    height: max-content;
+  }
   div {
     border-radius: 1rem;
   }
@@ -91,4 +95,9 @@
     // border
     border: none !important;
   }
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
