@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import VerticalProgress from "@mui/material/LinearProgress";
 import HorizontalProgress from "@mui/material/LinearProgress";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+// import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+// import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Image from "next/image";
 import { Card, Grid, IconButton, Typography, Button } from "@mui/material";
 // import { useForm, Controller } from "react-hook-form";
@@ -12,9 +12,7 @@ import IlusFirst from "../components/first_back.svg";
 import IlusSecond from "../components/second_back.svg";
 import IlusThird from "../components/third_back.svg";
 import IlusFinal from "../components/final.svg";
-// import usePrevious from "./usePrevious";
 import Datetimestep from "./Datetimestep";
-// import { createStyles, makeStyles } from "@mui/styles";
 import RadioStep from "./RadioStep";
 import Header from "./Header";
 import AskName from "./AskName";
@@ -34,6 +32,8 @@ export const usePrevious = (value: any) => {
   }, [value]);
   return ref.current;
 };
+
+const b = { 25: IlusFirst, 50: IlusSecond, 75: IlusThird, 100: IlusFinal };
 
 function Questionarie() {
   const [dobShow, setDobShow] = useState<string>("");
@@ -63,8 +63,8 @@ function Questionarie() {
 
   const [progress, setProgress] = useState<number>(25);
   const [thankyou, setThankYou] = useState(false);
-  const [error, setError] = useState(null);
-
+  // const [error, setError] = useState<boolean>("");
+  const ref = useRef(null);
   // const { register, formState, handleSubmit, setError, reset } = useForm({
   //   resolver: yupResolver(schema),
   //   // values: {},
@@ -73,10 +73,10 @@ function Questionarie() {
 
   const handleChange = (name: string, value: string) => {
     setValues({ ...values, [name]: value });
-    setError(null);
+    // setError(null);
   };
 
-  const submit = async (e) => {
+  const submit = async (e: any) => {
     e.preventDefault();
     try {
       // quote_for --> first
@@ -87,13 +87,53 @@ function Questionarie() {
         "https://api.quantumdigitalmedia.com/post.do",
         obj
       );
+      setThankYou(true)
       console.log("re", res.data);
     } catch (error) {
       console.log("eror", error);
     }
   };
 
-  console.log("dobShow--->", dobShow, values);
+  const onBack = () => {
+    setDobShow("");
+    setProgress((p) => (p > 25 ? p - 25 : 25));
+  };
+
+  const onContinue = () => {
+    if (
+      (progress === 25 && !dobShow) ||
+      (progress === 50 && !(dobShow == "benefits")) ||
+      (progress === 75 && !/(coverage2|benefits)/.test(dobShow)) ||
+      (progress === 100 && !/(email|coverage2)/.test(dobShow))
+    ) {
+      setDobShow(
+        (p) =>
+          (progress === 25 && "dob") ||
+          (progress === 50 && "benefits") ||
+          (progress === 100 &&
+            ((p == "lovedcontact" && "phone") ||
+              (p == "phone" && "address") ||
+              (p == "address" && "zip") ||
+              (p == "zip" && "email") ||
+              (p == "email" && "email") ||
+              "lovedcontact")) ||
+          (progress === 75 &&
+            (dobShow == "coverage" ? "coverage2" : "coverage")) ||
+          ""
+      );
+    } else {
+      setDobShow((p) => (p == "phone" ? "phone" : ""));
+      setProgress((p: number) => (p == 100 ? 100 : p + 25));
+    }
+  };
+
+  const last = {
+    address: "Enter address",
+    phone: "Enter phone number",
+    email: "Enter email",
+    zip: "Enter zip",
+  };
+
   return (
     <div style={{ height: "50vh" }}>
       <Header />
@@ -128,8 +168,6 @@ function Questionarie() {
           <div className="flex flex-row mt-5" style={{}}>
             <VerticalProgress
               variant="determinate"
-              //   className="vertical_progress"
-              //   o
               sx={{
                 width: 4,
                 height: 180,
@@ -165,227 +203,206 @@ function Questionarie() {
         ) : (
           <Grid item md={8} sm={10} xs={10} lg={5} xl={5}>
             <form onSubmit={submit}>
-              <>
-                <div
-                  className="card_back relative rounded-3xl -z-10"
-                  style={{}}
-                >
-                  <Image
-                    src={obj[progress || ""]}
-                    alt=""
-                    style={{ height: "100px" }}
-                    className="absolute bottom-10 right-12"
+              <div
+                className="card_back relative rounded-3xl -z-10"
+                // style={{}}
+              >
+                <Image
+                  src={obj[progress || ""]}
+                  alt=""
+                  style={{ height: "100px" }}
+                  className="absolute bottom-10 right-12"
+                />
+              </div>
+              <Card className="rounded-3xl p-8">
+                {/* // First step */}
+                {progress == 25 && !dobShow && (
+                  <RadioStep
+                    head="INTRODUCTION"
+                    values={values}
+                    name="intro"
+                    // note={null}
+                    onBack={onBack}
+                    dobShow={dobShow}
+                    progress={progress}
+                    onContinue={onContinue}
+                    handleChange={handleChange}
+                    radios={["Yes", "No"] as any}
+                    title="Are you looking for yourself or a loved one?"
                   />
-                </div>
-                <Card className="rounded-3xl p-8">
-                  {/* // First step */}
-                  {progress == 25 && !dobShow && (
-                    <RadioStep
-                      head="INTRODUCTION"
-                      values={values}
-                      name="intro"
-                      handleChange={handleChange}
-                      radios={["Yes", "No"] as any}
-                      title="Are you looking for yourself or a loved one?"
-                    />
-                  )}
+                )}
 
-                  {dobShow == "dob" && progress <= 25 && (
-                    <>
-                      <p className="text-xs text-gray-700 tracking-widest">
-                        {" "}
-                        INTRODUCTION
-                      </p>
-                      <h1 className="mt-3"> What is your date of birth?</h1>
-                      <Datetimestep
-                        values={values}
-                        handleChange={handleChange}
-                      />
-                    </>
-                  )}
-
-                  {progress == 50 && !(dobShow == "benefits") && (
-                    <RadioStep
-                      head="ELIGIBILITY"
-                      radios={["Yes", "No"] as any}
-                      name="eligible1"
-                      note={null}
-                      values={values}
-                      handleChange={handleChange}
-                      title="Are you already enrolled in Original Medicare (Parts A&B)?"
-                    />
-                  )}
-
-                  {progress == 50 && dobShow == "benefits" && (
-                    <RadioStep
-                      head="ELIGIBILITY"
-                      name="eligible2"
-                      note={null}
-                      values={values}
-                      radios={["Yes", "No"] as any}
-                      handleChange={handleChange}
-                      title="Are you eligible for Medicare benefits?"
-                    />
-                  )}
-
-                  {progress == 75 && !/(coverage|coverage2)/.test(dobShow) && (
-                    <RadioStep
-                      head="COVERAGE"
-                      radios={["Yes", "No"] as any}
-                      name="coverage1"
-                      values={values}
-                      handleChange={handleChange}
-                      title="Are you currently covered under Tricares?"
-                      note="Tricare provides civilian health benefits for U.S. Armed Forces military personnel, military retirees, and their dependents."
-                    />
-                  )}
-
-                  {progress == 75 && dobShow == "coverage" && (
-                    <RadioStep
-                      head="COVERAGE"
-                      name="coverage2"
-                      note={null}
-                      values={values}
-                      radios={["Yes", "No"] as any}
-                      handleChange={handleChange}
-                      title="Do you currently have any additional insurance coverage, other than your Medicare red, white, and blue card?"
-                    />
-                  )}
-
-                  {progress == 75 && dobShow == "coverage2" && (
-                    <RadioStep
-                      head="COVERAGE"
-                      name="coverage3"
-                      values={values}
-                      note={null}
-                      handleChange={handleChange}
-                      radios={["Yes", "No"] as any}
-                      title="Did you enroll in this coverage through a past employer, union, Tricare, or Medicaid?"
-                    />
-                  )}
-
-                  {progress == 75 && dobShow == "currentcoverage" && (
-                    <CurrentCoverage
-                      head="COVERAGE"
-                      name="coverage4"
-                      values={values}
-                      handleChange={handleChange}
-                      options={current}
-                      title="Who did you enroll through for your current coverage?"
-                    />
-                  )}
-
-                  {progress == 100 && !dobShow && (
-                    <AskName
-                      head="CONTACT"
+                {dobShow == "dob" && progress <= 25 && (
+                  <>
+                    <p className="text-xs text-gray-700 tracking-widest">
+                      {" "}
+                      INTRODUCTION
+                    </p>
+                    <h1 className="mt-3"> What is your date of birth?</h1>
+                    <Datetimestep
                       dobShow={dobShow}
                       values={values}
+                      onBack={onBack}
+                      onContinue={onContinue}
+                      progress={progress}
                       handleChange={handleChange}
-                      alert="This will help us know who we’re speaking to when we call."
-                      radios={["Yes", "No"] as any}
-                      title="What is your name?"
                     />
-                  )}
+                  </>
+                )}
 
-                  {progress == 100 && dobShow == "lovedcontact" && (
-                    <AskName
+                {progress == 50 && !(dobShow == "benefits") && (
+                  <RadioStep
+                    head="ELIGIBILITY"
+                    ref={ref}
+                    radios={["Yes", "No"] as any}
+                    name="eligible1"
+                    note={null}
+                    onContinue={onContinue}
+                    dobShow={dobShow}
+                    onBack={onBack}
+                    progress={progress}
+                    values={values}
+                    handleChange={handleChange}
+                    title="Are you already enrolled in Original Medicare (Parts A&B)?"
+                  />
+                )}
+
+                {progress == 50 && dobShow == "benefits" && (
+                  <RadioStep
+                    head="ELIGIBILITY"
+                    name="eligible2"
+                    note={null}
+                    dobShow={dobShow}
+                    onContinue={onContinue}
+                    onBack={onBack}
+                    progress={progress}
+                    values={values}
+                    radios={["Yes", "No"] as any}
+                    handleChange={handleChange}
+                    title="Are you eligible for Medicare benefits?"
+                  />
+                )}
+
+                {progress == 75 && !/(coverage|coverage2)/.test(dobShow) && (
+                  <RadioStep
+                    onBack={onBack}
+                    onContinue={onContinue}
+                    head="COVERAGE"
+                    radios={["Yes", "No"] as any}
+                    name="coverage1"
+                    dobShow={dobShow}
+                    progress={progress}
+                    values={values}
+                    handleChange={handleChange}
+                    title="Are you currently covered under Tricares?"
+                    note="Tricare provides civilian health benefits for U.S. Armed Forces military personnel, military retirees, and their dependents."
+                  />
+                )}
+
+                {progress == 75 && dobShow == "coverage" && (
+                  <RadioStep
+                    head="COVERAGE"
+                    name="coverage2"
+                    onContinue={onContinue}
+                    note={null}
+                    values={values}
+                    dobShow={dobShow}
+                    onBack={onBack}
+                    progress={progress}
+                    radios={["Yes", "No"] as any}
+                    handleChange={handleChange}
+                    title="Do you currently have any additional insurance coverage, other than your Medicare red, white, and blue card?"
+                  />
+                )}
+
+                {progress == 75 && dobShow == "coverage2" && (
+                  <RadioStep
+                    dobShow={dobShow}
+                    head="COVERAGE"
+                    name="coverage3"
+                    values={values}
+                    note={null}
+                    progress={progress}
+                    onBack={onBack}
+                    onContinue={onContinue}
+                    handleChange={handleChange}
+                    radios={["Yes", "No"] as any}
+                    title="Did you enroll in this coverage through a past employer, union, Tricare, or Medicaid?"
+                  />
+                )}
+
+                {progress == 75 && dobShow == "currentcoverage" && (
+                  <CurrentCoverage
+                    head="COVERAGE"
+                    name="coverage4"
+                    values={values}
+                    handleChange={handleChange}
+                    options={current}
+                    title="Who did you enroll through for your current coverage?"
+                  />
+                )}
+
+                {progress == 100 && !dobShow && (
+                  <AskName
+                    head="CONTACT"
+                    dobShow={dobShow}
+                    onBack={onBack}
+                    onContinue={onContinue}
+                    progress={progress}
+                    values={values}
+                    handleChange={handleChange}
+                    alert="This will help us know who we’re speaking to when we call."
+                    radios={["Yes", "No"] as any}
+                    title="What is your name?"
+                  />
+                )}
+
+                {progress == 100 && dobShow == "lovedcontact" && (
+                  <AskName
+                    head="CONTACT"
+                    values={values}
+                    onBack={onBack}
+                    progress={progress}
+                    onContinue={onContinue}
+                    handleChange={handleChange}
+                    alert="This will help us know who we’re speaking about when we call."
+                    dobShow={dobShow}
+                    radios={["Yes", "No"] as any}
+                    title="What is your loved one’s name?"
+                  />
+                )}
+
+                {progress == 100 &&
+                  /(address|phone|zip|email)/.test(dobShow) && (
+                    <AskPhone
                       head="CONTACT"
-                      values={values}
                       handleChange={handleChange}
-                      alert="This will help us know who we’re speaking about when we call."
                       dobShow={dobShow}
-                      // name="lovedname"
-                      radios={["Yes", "No"] as any}
-                      title="What is your loved one’s name?"
+                      onBack={onBack}
+                      progress={progress}
+                      placeholder={last[dobShow]}
+                      onContinue={onContinue}
+                      value={values[dobShow || ""] as any}
+                      title={
+                        (dobShow == "address" &&
+                          "What is your current home address?") ||
+                        (dobShow == "email" &&
+                          "What is your current email address?") ||
+                        (dobShow == "zip" && "What is your zip code?") ||
+                        "What is your phone number?"
+                      }
+                      alert={
+                        (dobShow == "address" &&
+                          "We can mail you valuable Medicare shopping resources.") ||
+                        (dobShow == "email" &&
+                          "We can send you valuable enrollment reminders & plan details.") ||
+                        (dobShow == "zip" &&
+                          "Medicare plan availability is based on zip code. Zip code is the minimum location information we need to help you.") ||
+                        "A quick discussion will help us find your ideal coverage."
+                      }
                     />
                   )}
-
-                  {progress == 100 &&
-                    /(address|phone|zip|email)/.test(dobShow) && (
-                      <AskPhone
-                        head="CONTACT"
-                        handleChange={handleChange}
-                        dobShow={dobShow}
-                        value={values[dobShow || ""] as any}
-                        title={
-                          (dobShow == "address" &&
-                            "What is your current home address?") ||
-                          (dobShow == "email" &&
-                            "What is your current email address?") ||
-                          (dobShow == "zip" && "What is your zip code?") ||
-                          "What is your phone number?"
-                        }
-                        alert={
-                          (dobShow == "address" &&
-                            "We can mail you valuable Medicare shopping resources.") ||
-                          (dobShow == "email" &&
-                            "We can send you valuable enrollment reminders & plan details.") ||
-                          (dobShow == "zip" &&
-                            "Medicare plan availability is based on zip code. Zip code is the minimum location information we need to help you.") ||
-                          "A quick discussion will help us find your ideal coverage."
-                        }
-                      />
-                    )}
-
-                  <div className="flex justify-between items-center relative h-10 border-1 mt-10">
-                    {(progress > 25 || dobShow) && (
-                      <IconButton
-                        onClick={() => {
-                          setDobShow("");
-                          setProgress((p) => (p > 25 ? p - 25 : 25));
-                        }}
-                        style={{ border: "1px solid lightgray" }}
-                        className="p-4 hover:bg-gray-300 relative"
-                      >
-                        <ArrowBackIcon />
-                      </IconButton>
-                    )}
-                    <Button
-                      disableRipple
-                      disableTouchRipple
-                      className="absolute right-0 continue_btn text-white"
-                      onClick={() => {
-                        if (
-                          (progress === 25 && !dobShow) ||
-                          (progress === 50 && !(dobShow == "benefits")) ||
-                          (progress === 75 &&
-                            !/(coverage2|benefits)/.test(dobShow)) ||
-                          (progress === 100 &&
-                            !/(email|coverage2)/.test(dobShow))
-                        ) {
-                          setDobShow(
-                            (p) =>
-                              (progress === 25 && "dob") ||
-                              (progress === 50 && "benefits") ||
-                              (progress === 100 &&
-                                ((p == "lovedcontact" && "phone") ||
-                                  (p == "phone" && "address") ||
-                                  (p == "address" && "zip") ||
-                                  (p == "zip" && "email") ||
-                                  (p == "email" && "email") ||
-                                  "lovedcontact")) ||
-                              (progress === 75 &&
-                                (dobShow == "coverage"
-                                  ? "coverage2"
-                                  : "coverage")) ||
-                              ""
-                          );
-                        } else {
-                          // console.log("elrsese");
-                          setDobShow((p) => (p == "phone" ? "phone" : ""));
-                          setProgress((p: number) => (p == 100 ? 100 : p + 25));
-                        }
-                      }}
-                    >
-                      Continue{" "}
-                      <ArrowForwardIcon
-                        className="text-white ml-2"
-                        color="secondary"
-                      />
-                    </Button>
-                  </div>
-                </Card>
-              </>
+              </Card>
 
               {progress == 100 && /(phone|address|email)/.test(dobShow) && (
                 <Grid
@@ -409,3 +426,58 @@ function Questionarie() {
 }
 
 export default Questionarie;
+
+{
+  /* <div className="flex justify-between items-center relative h-10 border-1 mt-10">
+  {(progress > 25 || dobShow) && (
+    <IconButton
+      onClick={() => {
+        setDobShow("");
+        setError(false);
+        setProgress((p) => (p > 25 ? p - 25 : 25));
+      }}
+      style={{ border: "1px solid lightgray" }}
+      className="p-4 hover:bg-gray-300 relative"
+    >
+      <ArrowBackIcon />
+    </IconButton>
+  )}
+  <Button
+    disableRipple
+    disableTouchRipple
+    ref={ref}
+    className="absolute right-0 continue_btn text-white"
+    onClick={() => {
+      // if (correct()) {
+      if (
+        (progress === 25 && !dobShow) ||
+        (progress === 50 && !(dobShow == "benefits")) ||
+        (progress === 75 && !/(coverage2|benefits)/.test(dobShow)) ||
+        (progress === 100 && !/(email|coverage2)/.test(dobShow))
+      ) {
+        setDobShow(
+          (p) =>
+            (progress === 25 && "dob") ||
+            (progress === 50 && "benefits") ||
+            (progress === 100 &&
+              ((p == "lovedcontact" && "phone") ||
+                (p == "phone" && "address") ||
+                (p == "address" && "zip") ||
+                (p == "zip" && "email") ||
+                (p == "email" && "email") ||
+                "lovedcontact")) ||
+            (progress === 75 &&
+              (dobShow == "coverage" ? "coverage2" : "coverage")) ||
+            ""
+        );
+      } else {
+        setDobShow((p) => (p == "phone" ? "phone" : ""));
+        setProgress((p: number) => (p == 100 ? 100 : p + 25));
+      }
+      // }
+    }}
+  >
+    Continue <ArrowForwardIcon className="text-white ml-2" color="secondary" />
+  </Button>
+</div>; */
+}

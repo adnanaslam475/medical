@@ -20,9 +20,18 @@ const DropdownIndicator = (props, open) => {
   );
 };
 
-function ReusableSelect({ onChange, placeholder, value, options }) {
+function ReusableSelect({
+  onChange,
+  placeholder,
+  value,
+  options,
+  err,
+  setErr,
+}) {
   const [open, setOPen] = useState(false);
+
   console.log("ReusableSelect", value);
+
   return (
     <ReactSelect
       // menuIsOpen
@@ -35,27 +44,33 @@ function ReusableSelect({ onChange, placeholder, value, options }) {
       components={{
         DropdownIndicator: (props) => DropdownIndicator(props, open),
       }}
-      onMenuOpen={() => setOPen(true)}
+      onMenuOpen={() => {
+        setErr("");
+        setOPen(true);
+      }}
       onMenuClose={() => setOPen(false)}
       styles={{
-        menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+        menuPortal: (base) => ({ ...base, zIndex: 1 }),
         control: (provided, { isFocused, isDisabled }) => ({
           ...provided,
           height: "60px",
-          // width: "200px",
-          // zIndex: 9999,
           borderBottom: isFocused && "none",
           borderRadius: `1rem 1rem ${!isFocused ? "1rem 1rem" : "0 0"}`,
+          ...(err && {
+            border: `1.5px solid #DE2654`,
+          }),
         }),
         menu: (provided, { clearValue, isLoading }) => ({
           ...provided,
           marginTop: "1px",
           borderTopStyle: "hidden !important",
-          border: "2px solid #0755db",
+          ...(err && {
+            border: `1.5px solid #DE2654`,
+          }),
           borderRadius: "0 0 1rem 1rem",
           overflowY: "hidden",
           position: "absolute",
-          zIndex: 9999,
+          zIndex: 1,
           marginRight: "20px",
         }),
         option: (provided, { isFocused, isSelected }) => ({

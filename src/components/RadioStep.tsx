@@ -1,6 +1,9 @@
-import React from "react";
-import { Radio } from "@mui/material";
+import React, { useState } from "react";
+import { Button, IconButton, Radio } from "@mui/material";
 import { createStyles, makeStyles } from "@mui/styles";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ErrorIcon from "@mui/icons-material/Error";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -8,25 +11,39 @@ const useStyles = makeStyles((theme) =>
       "& svg": {
         width: "1.5em",
         height: "1.5em",
+        // color: "white",
+      },
+    },
+    smallRadioButtonf: {
+      "& svg": {
+        // width: "1.5em",
+        // height: "1.5em",
+        color: "red",
       },
     },
   })
 );
 
-// head="ELIGIBILITY"
-// radios={["Yes", "No"] as any}
-// name="eligible1"
-// values={values}
-// handleChange={handleChange}
-// title
+type EProps = { a: string; classnames?: string };
+export const ErrorDiv = ({ a, classnames }: EProps) => (
+  <div className={`flex items-center ${classnames}`}>
+    <ErrorIcon style={{ color: "red" }} />
+    <p className="text-red-600 ml-2">{a} is required to continue.</p>
+  </div>
+);
+
 type Props = {
   title: string;
   head: string;
   name: string;
-  note: any;
+  note?: string;
   values: any;
   radios: [];
   handleChange: (name: string, value: any) => void;
+  onBack: () => void;
+  onContinue: () => void;
+  dobShow: string;
+  progress: number;
 };
 
 function RadioStep({
@@ -37,8 +54,13 @@ function RadioStep({
   radios = [],
   handleChange,
   values,
+  dobShow,
+  progress,
+  onBack,
+  onContinue,
 }: Props) {
   const classes = useStyles();
+  const [err, setErr] = useState(false);
 
   return (
     <>
@@ -48,22 +70,59 @@ function RadioStep({
       {radios.map((v) => (
         <div
           key={v}
-          onClick={() => handleChange(name, v)}
+          onClick={() => {
+            handleChange(name, v);
+            setErr(false);
+          }}
           className="rounded-full border-gray-500 mt-5 cursor-pointer h-14 flex items-center mb-5 radiotrans"
           style={{
-            border: "1px solid lightgray",
+            border: `1px solid ${err ? "red" : "lightgray"}`,
             transition: ".5s",
             backgroundColor: values[name] == v ? "#0755DB" : "",
             color: values[name] == v ? "white" : "",
           }}
         >
           <Radio
-            className={"p-3 rad text-lg " + classes.smallRadioButton}
+            className={
+              "p-3 rad text-lg " +
+              classes.smallRadioButton +
+              (values[name] ? " chk" : "") +
+              (err ? " error sml" : "")
+            }
+            style={{ color: err && "red" }}
             checked={values[name] == v}
           />
           {v}
         </div>
       ))}
+      {err && <ErrorDiv a="This" />}
+      <div className="flex justify-between items-center relative h-10 border-1 mt-10">
+        {(progress > 25 || dobShow) && (
+          <IconButton
+            onClick={() => {
+              onBack();
+              setErr(false);
+            }}
+            style={{ border: "1px solid lightgray" }}
+            className="p-4 hover:bg-gray-300 relative"
+          >
+            <ArrowBackIcon />
+          </IconButton>
+        )}
+        <Button
+          disableRipple
+          disableTouchRipple
+          className="absolute right-0 continue_btn text-white"
+          onClick={() =>
+            values[name] || /(eligible1|coverage2)/.test(name)
+              ? onContinue()
+              : setErr(true)
+          }
+        >
+          Continue{" "}
+          <ArrowForwardIcon className="text-white ml-2" color="secondary" />
+        </Button>
+      </div>
     </>
   );
 }

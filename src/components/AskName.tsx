@@ -1,7 +1,10 @@
-import React from "react";
-import { Alert, Grid, TextField } from "@mui/material";
-import Sheild from "./sheild.svg";
+import React, { useState } from "react";
 import Image from "next/image";
+import { Alert, Button, Grid, IconButton, TextField } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Sheild from "./sheild.svg";
+import { ErrorDiv } from "./RadioStep";
 
 type Props = {
   title: string;
@@ -12,17 +15,31 @@ type Props = {
   radios: [];
   handleChange: (name: string, value: any) => void;
 };
-function AskName({ title, head, dobShow, alert, values, handleChange }: Props) {
+function AskName({
+  title,
+  head,
+  dobShow,
+  alert,
+  values,
+  handleChange,
+  onBack,
+  onContinue,
+  progress,
+}: Props) {
   console.log("dobShow", dobShow);
+  const [err, setErr] = useState("");
+
   const a = !dobShow
     ? [
-        { p: "Enter first name", i: "firstName", s: "mr-2" },
-        { p: "Enter last name", i: "lastName", s: "ml-2" },
+        { p: "First name", i: "firstName", s: "mr-2" },
+        { p: "Last name", i: "lastName", s: "ml-2" },
       ]
     : [
         { p: "First name", i: "lovedFirstName", s: "mr-2" },
         { p: "Last name", i: "lovedLastName", s: "ml-2" },
       ];
+  console.log("setErr", err);
+
   return (
     <>
       <p className="text-xs text-gray-500 tracking-widest"> {head}</p>
@@ -31,9 +48,9 @@ function AskName({ title, head, dobShow, alert, values, handleChange }: Props) {
         {a.map((v) => (
           <Grid xs={12} item md={6} key={v.s} xl={6} lg={6} sm={6}>
             <TextField
-              className={`year ${v.s}`}
+              className={`year ${v.s} ${err == v.p ? "fnone" : ""}`}
               size="medium"
-              placeholder={v.p}
+              placeholder={"Enter " + v.p}
               InputLabelProps={{
                 style: {},
               }}
@@ -41,6 +58,9 @@ function AskName({ title, head, dobShow, alert, values, handleChange }: Props) {
               InputProps={{
                 style: {
                   height: "62px",
+                  ...(err == v.p && {
+                    border: `1px solid #DE2654`,
+                  }),
                   //   ...(!focused && { top: `${labelOffset}px` }),
                 },
               }}
@@ -48,7 +68,10 @@ function AskName({ title, head, dobShow, alert, values, handleChange }: Props) {
                 borderRadius: "1rem",
                 width: "100%",
               }}
-              onChange={({ target: { value } }) => handleChange(v.i, value)}
+              onChange={({ target: { value } }) => {
+                setErr("");
+                handleChange(v.i, value);
+              }}
             />
           </Grid>
         ))}
@@ -59,7 +82,35 @@ function AskName({ title, head, dobShow, alert, values, handleChange }: Props) {
         icon={<Image src={Sheild} alt="" className="" />}
       >
         {alert}
-      </Alert>
+      </Alert>{" "}
+      {err && <ErrorDiv classnames="mt-3" a={err} />}
+      <div className="flex justify-between items-center relative h-10 border-1 mt-10">
+        {(progress > 25 || dobShow) && (
+          <IconButton
+            onClick={onBack}
+            style={{ border: "1px solid lightgray" }}
+            className="p-4 hover:bg-gray-300 relative"
+          >
+            <ArrowBackIcon />
+          </IconButton>
+        )}
+        <Button
+          disableRipple
+          disableTouchRipple
+          className="absolute right-0 continue_btn text-white"
+          onClick={() => {
+            for (let key in values) {
+              if (!values[key] && a.map((v) => v.i).includes(key)) {
+                return setErr(a.find((v) => v.i == key).p);
+              }
+            }
+            onContinue();
+          }}
+        >
+          Continue{" "}
+          <ArrowForwardIcon className="text-white ml-2" color="secondary" />
+        </Button>
+      </div>
     </>
   );
 }

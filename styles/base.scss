@@ -77,22 +77,48 @@
     display: none;
   }
 }
+
 .rad {
   svg {
     width: 1.8rem;
     height: 1.8rem;
   }
 }
+.sml{
+  svg{
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+  }
+}
+
 .redalert {
   background-color: rgb(242, 235, 244);
   color: #672873;
 }
+
+.chk {
+  span {
+    color: white;
+  }
+}
+
 .radiotrans:hover {
   .rad > * {
     stroke: blue;
     stroke-width: 4;
-    // box-shadow: 0 0 1px transparent;
-    // border
+    border: none !important;
+  }
+  .error > * {
+    stroke: red !important;
+    stroke-width: 4;
+    border: none !important;
+  }
+}
+
+.radiotranserr:hover {
+  .rad > * {
+    stroke: red;
+    stroke-width: 4;
     border: none !important;
   }
 }
@@ -100,4 +126,12 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+.fnone {
+  fieldset {
+    border: none !important;
+  }
+  input {
+    border: none !important;
+  }
 }
