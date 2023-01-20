@@ -68,7 +68,7 @@ function Signup({ setView, onSlide, view, onFinish }) {
               autoComplete="current-password"
               variant="standard"
               helperText={errors[v.name] ? errors[v.name].message : ""}
-              error={!!errors.email}
+              error={!!errors[v.name]}
               InputProps={{
                 endAdornment: v.name == "password" && (
                   <InputAdornment position="end">

@@ -19,17 +19,16 @@
 .enter {
   animation-direction: normal;
   transform: translateX(0%);
-  animation-timing-function: ease;
-  animation: enteranim 1s;
-  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation: enteranim 0.6s;
+  animation-duration: 0.6s;
 }
 
 .exit {
   transform: translateX(-200%);
-  animation-delay: 0.5s;
-  animation-timing-function: ease;
-  animation: exitanim 1s;
-  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation: exitanim 0.7s;
+  animation-duration: 0.7s;
 }
 
 @keyframes enteranim {

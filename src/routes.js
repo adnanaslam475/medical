@@ -20,7 +20,7 @@ const RoutesMain = () => {
       <BrowserRouter>
         <React.Suspense fallback={<Loader />}>
           <Routes>
-            {!user.accessToken ? (
+            {user.accessToken ? (
               <Route path={``} element={<App />}>
                 <Route>
                   <Route path={`/`} element={<Dashboard />} />

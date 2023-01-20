@@ -7,10 +7,10 @@ import {
   TextField,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useForm, Controller } from "react-hook-form";
+import { object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import SocialLoginButtons from "../../../pages/AuthLogin/SocialLoginButtons.js";
-import { useForm } from "react-hook-form";
-import { object, string } from "yup";
 
 const { Title, Link, Paragraph } = Typography;
 
@@ -27,8 +27,8 @@ function Login({ setView, onSlide, onFinish, view }) {
     // validationSchema: schema,
   });
 
-  const { isSubmitting, errors, isLoading } = formState;
-
+  const { isSubmitting, errors, isLoading, defaultValues } = formState;
+  console.log("formState", formState);
   const loginsubmit = async (data) => {
     console.log("data", data);
     try {
