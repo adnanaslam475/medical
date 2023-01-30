@@ -22,7 +22,6 @@ import CurrentCoverage, { current } from "./Currentcoverage";
 import Thankyou from "./Thankyou";
 import axios from "axios";
 import { steps } from "../utils";
-import "../styles/base.scss";
 
 const obj: any = {
   25: IlusFirst,
