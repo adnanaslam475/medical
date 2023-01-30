@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Image from 'next/image'
+// import Image from 'next/image'
 // import '../styles/base.scss'
 // import { Inter } from '@next/font/google'
 import Questionarie from '../src/components/Questionarie';
