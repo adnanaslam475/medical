@@ -4,7 +4,7 @@ import Image from 'next/image'
 // import { Inter } from '@next/font/google'
 import Questionarie from '../src/components/Questionarie';
 import styles from '../styles/Home.module.css'
-import LinearProgress from '@mui/material/LinearProgress';
+// import LinearProgress from '@mui/material/LinearProgress';
 
 // const inter = Inter({ subsets: ['latin'] })
 // #0755DB
