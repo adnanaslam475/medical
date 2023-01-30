@@ -19,8 +19,6 @@ function Header() {
       <Image
         alt=""
         src={Logo}
-        // loader={<CustomLoader />}
-        // layout="fill"
         width={150}
         height={150}
         className=""
