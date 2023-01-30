@@ -36,8 +36,9 @@ type Props = {
   title: string;
   head: string;
   name: string;
-  note?: string;
+  note?: any;
   values: any;
+  ref?: any;
   radios: [];
   handleChange: (name: string, value: any) => void;
   onBack: () => void;
@@ -89,7 +90,7 @@ function RadioStep({
               (values[name] ? " chk" : "") +
               (err ? " error sml" : "")
             }
-            style={{ color: err && "red" }}
+            style={{ color: err ? "red" : "" }}
             checked={values[name] == v}
           />
           {v}

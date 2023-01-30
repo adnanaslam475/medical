@@ -5,7 +5,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IlusSecond from "../components/second_back.svg";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-const DropdownIndicator = (props, open) => {
+const DropdownIndicator = (props: any, open: any) => {
   return (
     <components.DropdownIndicator className="" {...props}>
       {open ? (
@@ -20,6 +20,18 @@ const DropdownIndicator = (props, open) => {
   );
 };
 
+type Props = {
+  title?: any;
+  placeholder: any;
+  values?: any;
+  handleChange?: any;
+  options: any;
+  onChange: any;
+  value: any;
+  err?: any;
+  setErr?: any;
+};
+
 function ReusableSelect({
   onChange,
   placeholder,
@@ -27,7 +39,7 @@ function ReusableSelect({
   options,
   err,
   setErr,
-}) {
+}: Props) {
   const [open, setOPen] = useState(false);
 
   console.log("ReusableSelect", value);
@@ -38,7 +50,7 @@ function ReusableSelect({
       className="react__select mr-3"
       defaultValue={options[0]}
       placeholder={placeholder}
-      value={options.filter((v) => v.value == value)[0]}
+      value={options.filter((v: any) => v.value == value)[0]}
       menuPortalTarget={document.body}
       onChange={onChange}
       components={{

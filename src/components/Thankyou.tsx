@@ -14,7 +14,7 @@ function Thankyou() {
       <Image src={T} alt="" className="" height={270} />
       <Typography className="-mt-12">We found 8 possible plans for you!</Typography>
 
-      <Typography variant="h6 mt-10">Want to take action right away?</Typography>
+      <Typography variant="h6" className="mt-10">Want to take action right away?</Typography>
       <a
         href="tel:+1800229933"
         style={{

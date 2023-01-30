@@ -23,7 +23,12 @@ import Thankyou from "./Thankyou";
 import axios from "axios";
 import { steps } from "../utils";
 
-const obj = { 25: IlusFirst, 50: IlusSecond, 75: IlusThird, 100: IlusFinal };
+const obj: any = {
+  25: IlusFirst,
+  50: IlusSecond,
+  75: IlusThird,
+  100: IlusFinal,
+};
 
 export const usePrevious = (value: any) => {
   const ref = useRef();
@@ -33,12 +38,12 @@ export const usePrevious = (value: any) => {
   return ref.current;
 };
 
-const b = { 25: IlusFirst, 50: IlusSecond, 75: IlusThird, 100: IlusFinal };
+// const b = { 25: IlusFirst, 50: IlusSecond, 75: IlusThird, 100: IlusFinal };
 
 function Questionarie() {
   const [dobShow, setDobShow] = useState<string>("");
   // const { getValues } = useFormContext();    register('select', {
-  const [values, setValues] = useState<valuesState>({
+  const [values, setValues] = useState<valuesState | any>({
     intro: "",
     month: "",
     day: "",
@@ -87,7 +92,7 @@ function Questionarie() {
         "https://api.quantumdigitalmedia.com/post.do",
         obj
       );
-      setThankYou(true)
+      setThankYou(true);
       console.log("re", res.data);
     } catch (error) {
       console.log("eror", error);
@@ -127,7 +132,7 @@ function Questionarie() {
     }
   };
 
-  const last = {
+  const last: any = {
     address: "Enter address",
     phone: "Enter phone number",
     email: "Enter email",

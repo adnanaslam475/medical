@@ -13,7 +13,7 @@ type Props = {
   alert: string;
   value: any;
   placeholder: any;
-  radios: [];
+  radios?: [];
   progress: number;
   handleChange: (name: string, value: any) => void;
   onBack: () => void;

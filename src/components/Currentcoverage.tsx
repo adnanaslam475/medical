@@ -11,7 +11,23 @@ export const current = [
   { value: "medicaid", label: "Medicaid" },
 ];
 
-function Currentcoverage({ title, head, values, handleChange, options, name }) {
+type Props = {
+  title: any;
+  head: any;
+  values: any;
+  handleChange: any;
+  options: any;
+  name: any;
+};
+
+function Currentcoverage({
+  title,
+  head,
+  values,
+  handleChange,
+  options,
+  name,
+}: Props) {
   return (
     <>
       <p className="text-xs text-gray-500 tracking-widest"> {head}</p>
@@ -19,7 +35,7 @@ function Currentcoverage({ title, head, values, handleChange, options, name }) {
       <ReusableSelect
         placeholder="select month"
         value={values[name]}
-        onChange={(value) => handleChange(name, value)}
+        onChange={(value: any) => handleChange(name, value)}
         options={options}
       />
     </>

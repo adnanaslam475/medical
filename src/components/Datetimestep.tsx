@@ -57,7 +57,7 @@ function Datetimestep({
               handleChange("day", value.value);
             }}
             options={Array(31)
-              .fill()
+              .fill(1)
               .map((_, i) => ({ value: i + 1, label: i + 1 }))}
           />
         </Grid>

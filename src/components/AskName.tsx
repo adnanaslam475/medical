@@ -13,6 +13,9 @@ type Props = {
   alert: string;
   values: any;
   radios: [];
+  onBack: any;
+  onContinue: any;
+  progress: any;
   handleChange: (name: string, value: any) => void;
 };
 function AskName({
@@ -29,7 +32,7 @@ function AskName({
   console.log("dobShow", dobShow);
   const [err, setErr] = useState("");
 
-  const a = !dobShow
+  const a: any = !dobShow
     ? [
         { p: "First name", i: "firstName", s: "mr-2" },
         { p: "Last name", i: "lastName", s: "ml-2" },
@@ -45,7 +48,7 @@ function AskName({
       <p className="text-xs text-gray-500 tracking-widest"> {head}</p>
       <h1 className="mt-3">{title}</h1>
       <Grid className="mt-3" container>
-        {a.map((v) => (
+        {a.map((v: any) => (
           <Grid xs={12} item md={6} key={v.s} xl={6} lg={6} sm={6}>
             <TextField
               className={`year ${v.s} ${err == v.p ? "fnone" : ""}`}
@@ -100,8 +103,8 @@ function AskName({
           className="absolute right-0 continue_btn text-white"
           onClick={() => {
             for (let key in values) {
-              if (!values[key] && a.map((v) => v.i).includes(key)) {
-                return setErr(a.find((v) => v.i == key).p);
+              if (!values[key] && a.map((v: any) => v.i).includes(key)) {
+                return setErr(a.find((v: any) => v.i == key).p);
               }
             }
             onContinue();
