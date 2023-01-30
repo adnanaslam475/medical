@@ -1,28 +1,21 @@
 import React, { useState } from "react";
 import { Button, IconButton, Radio } from "@mui/material";
-import { createStyles, makeStyles } from "@mui/styles";
+// import { createStyles, makeStyles } from "@mui/styles";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ErrorIcon from "@mui/icons-material/Error";
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    smallRadioButton: {
-      "& svg": {
-        width: "1.5em",
-        height: "1.5em",
-        // color: "white",
-      },
-    },
-    smallRadioButtonf: {
-      "& svg": {
-        // width: "1.5em",
-        // height: "1.5em",
-        color: "red",
-      },
-    },
-  })
-);
+// const useStyles = makeStyles((theme) =>
+//   createStyles({
+//     smallRadioButton: {
+//       "& svg": {
+//         width: "1.5em",
+//         height: "1.5em",
+//         // color: "white",
+//       },
+//     },
+//   })
+// );
 
 type EProps = { a: string; classnames?: string };
 export const ErrorDiv = ({ a, classnames }: EProps) => (
@@ -60,7 +53,7 @@ function RadioStep({
   onBack,
   onContinue,
 }: Props) {
-  const classes = useStyles();
+  // const classes = useStyles();
   const [err, setErr] = useState(false);
 
   return (
@@ -84,9 +77,14 @@ function RadioStep({
           }}
         >
           <Radio
+            // sx={{
+            //   "& svg": {
+            //     width: "2.5em !important",
+            //     height: "2.5em !important",
+            //   },
+            // }}
             className={
               "p-3 rad text-lg " +
-              classes.smallRadioButton +
               (values[name] ? " chk" : "") +
               (err ? " error sml" : "")
             }

@@ -210,7 +210,7 @@ function Questionarie() {
             <form onSubmit={submit}>
               <div
                 className="card_back relative rounded-3xl -z-10"
-                // style={{}}
+                style={{ borderRadius: "1.5rem" }}
               >
                 <Image
                   src={obj[progress || ""]}
@@ -219,7 +219,10 @@ function Questionarie() {
                   className="absolute bottom-10 right-12"
                 />
               </div>
-              <Card className="rounded-3xl p-8">
+              <Card
+                style={{ borderRadius: "1.5rem" }}
+                className="rounded-3xl p-8"
+              >
                 {/* // First step */}
                 {progress == 25 && !dobShow && (
                   <RadioStep
@@ -413,7 +416,11 @@ function Questionarie() {
                 <Grid
                   container
                   className="rounded-3xl mt-5 p-5 tracking-wide"
-                  style={{ backgroundColor: "#F5F7FA", color: "#626873" }}
+                  style={{
+                    backgroundColor: "#F5F7FA",
+                    color: "#626873",
+                    borderRadius: "1.5rem",
+                  }}
                 >
                   {(dobShow == "email" &&
                     "By submitting this form, I consent to allow TogetherHealth Insurance, LLC, Health Plan Intermediaries Holdings, LLC, Total Insurance Brokers, LLC, or HealthPocket d/b/a AgileHealthInsurance Agency, which are all part of the Benefytt Technologies, Inc. family of companies, to contact me by email about Medicare Advantage, Medicare Supplement Insurance and Prescription Drug plans using the contact information provided.") ||

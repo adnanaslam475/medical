@@ -14,7 +14,8 @@
 .continue_btn:hover {
   background-color: #002f80;
 }
-
+.react__select {
+}
 .datetime {
   .MuiPopover-root > * {
     overflow: hidden;
@@ -83,8 +84,8 @@
     height: 1.8rem;
   }
 }
-.sml {
-  svg {
+.sml{
+  svg{
     width: 1.5rem !important;
     height: 1.5rem !important;
   }

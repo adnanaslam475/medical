@@ -1,6 +1,5 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { ServerStyleSheets } from "@mui/styles"; // works with @material-ui/core/styles, if you prefer to use it.
 
 export default function MyDocument() {
   return (
