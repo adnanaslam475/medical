@@ -89,7 +89,7 @@ function Questionarie() {
       );
       setThankYou(true)
       console.log("re", res.data);
-    } catch (error) {
+    } catch (error) { 
       console.log("eror", error);
     }
   };
