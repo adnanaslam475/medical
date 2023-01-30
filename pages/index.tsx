@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import Image from 'next/image'
 // import '../styles/base.scss'
-import { Inter } from '@next/font/google'
+// import { Inter } from '@next/font/google'
 import Questionarie from '../src/components/Questionarie';
 import styles from '../styles/Home.module.css'
 import LinearProgress from '@mui/material/LinearProgress';
 
-const inter = Inter({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] })
 // #0755DB
 
 export default function Home() {
