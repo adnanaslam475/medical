@@ -44,7 +44,7 @@ function ReusableSelect({
 
   return (
     <ReactSelect
-      menuIsOpen
+      // menuIsOpen
       className="mr-3"
       defaultValue={options[0]}
       placeholder={placeholder}
