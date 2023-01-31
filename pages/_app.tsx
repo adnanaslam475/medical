@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
     // import("tw-elements");
     // import("tw-elements");
     const use = async () => {
-      (await import("tw-elements")).default as any;
+      (await import("tw-elements" as any)).default as any;
     };
     use();
   }, []);
