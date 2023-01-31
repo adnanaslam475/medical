@@ -42,11 +42,10 @@ function ReusableSelect({
 }: Props) {
   const [open, setOPen] = useState(false);
 
-
   return (
     <ReactSelect
       // menuIsOpen
-      className="react__select mr-3"
+      className="mr-3"
       defaultValue={options[0]}
       placeholder={placeholder}
       value={options.filter((v: any) => v.value == value)[0]}
@@ -61,29 +60,44 @@ function ReusableSelect({
       }}
       onMenuClose={() => setOPen(false)}
       styles={{
-        menuPortal: (base) => ({ ...base, zIndex: 1 }),
-        control: (provided, { isFocused, isDisabled }) => ({
-          ...provided,
-          height: "60px",
-          borderBottom: isFocused && "none",
-          borderRadius: `1rem 1rem ${!isFocused ? "1rem 1rem" : "0 0"}`,
-          ...(err && {
-            border: `1.5px solid #DE2654`,
-          }),
-        }),
-        menu: (provided, { clearValue, isLoading }) => ({
-          ...provided,
-          marginTop: "1px",
-          borderTopStyle: "hidden !important",
-          ...(err && {
-            border: `1.5px solid #DE2654`,
-          }),
-          borderRadius: "0 0 1rem 1rem",
-          overflowY: "hidden",
-          position: "absolute",
+        menuPortal: (base) => ({
+          ...base,
           zIndex: 1,
-          marginRight: "20px",
         }),
+        control: (provided, { isFocused, isDisabled, menuIsOpen }) => {
+          return {
+            // ...provided,
+            height: "60px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            border: isFocused ? "2px solid #0755db" : "1px solid lightgray",
+            borderBottom: isFocused && menuIsOpen && "none !important",
+
+            borderRadius: `1rem 1rem ${
+              !isFocused || !menuIsOpen ? "1rem 1rem" : "0 0"
+            }`,
+            ...(err && {
+              border: `1.5px solid #DE2654`,
+            }),
+          };
+        },
+        menu: (provided, { clearValue, isLoading }) => {
+          return {
+            ...provided,
+            marginTop: "1px",
+            borderTop: "none !important",
+            ...(err && {
+              border: `1.5px solid #DE2654`,
+            }),
+            borderRadius: "0 0 1rem 1rem",
+            border: "2px solid #0755db",
+            overflowY: "hidden",
+            position: "absolute",
+            zIndex: 1,
+            marginRight: "20px",
+          };
+        },
         option: (provided, { isFocused, isSelected }) => ({
           ...provided,
           overflowY: "hidden",

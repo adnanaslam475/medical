@@ -4,17 +4,6 @@
   height: 100px;
 }
 
-.continue_btn {
-  background-color: #0755db;
-  height: 60px;
-  padding: 20px;
-  border-radius: 2.5rem;
-}
-
-.continue_btn:hover {
-  background-color: #002f80;
-}
-
 .datetime {
   .MuiPopover-root > * {
     overflow: hidden;
@@ -133,4 +122,15 @@ input::-webkit-inner-spin-button {
   input {
     border: none !important;
   }
+}
+
+.continue_btn {
+  background-color: #0755db !important;
+  height: 60px !important;
+  padding: 20px !important;
+  border-radius: 2.5rem !important;
+}
+
+.continue_btn:hover {
+  background-color: #002f80;
 }

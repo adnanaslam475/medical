@@ -53,7 +53,6 @@ function RadioStep({
   onBack,
   onContinue,
 }: Props) {
-  // const classes = useStyles();
   const [err, setErr] = useState(false);
 
   return (
@@ -113,7 +112,7 @@ function RadioStep({
           disableRipple
           disableTouchRipple
           style={{ position: "absolute", right: 0, color: "white" }}
-          className="absolute right-0 continue_btn text-white"
+          className="absolute right-0 continue_btn"
           onClick={() =>
             values[name] || /(eligible1|coverage2)/.test(name)
               ? onContinue()

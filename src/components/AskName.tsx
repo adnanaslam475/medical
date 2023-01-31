@@ -98,7 +98,9 @@ function AskName({
         <Button
           disableRipple
           disableTouchRipple
-          className="absolute right-0 continue_btn text-white"
+          style={{ position: "absolute", right: 0, color: "white" }}
+          className="absolute right-0 continue_btn"
+          // className="absolute right-0 continue_btn text-white"
           onClick={() => {
             for (let key in values) {
               if (!values[key] && a.map((v: any) => v.i).includes(key)) {

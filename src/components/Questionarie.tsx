@@ -41,8 +41,8 @@ export const usePrevious = (value: any) => {
 // const b = { 25: IlusFirst, 50: IlusSecond, 75: IlusThird, 100: IlusFinal };
 
 function Questionarie() {
+  const [progress, setProgress] = useState<number>(25);
   const [dobShow, setDobShow] = useState<string>("");
-  // const { getValues } = useFormContext();    register('select', {
   const [values, setValues] = useState<valuesState | any>({
     intro: "",
     month: "",
@@ -66,7 +66,6 @@ function Questionarie() {
     zip: "",
   });
 
-  const [progress, setProgress] = useState<number>(25);
   const [thankyou, setThankYou] = useState(false);
   // const [error, setError] = useState<boolean>("");
   const ref = useRef(null);
@@ -438,58 +437,3 @@ function Questionarie() {
 }
 
 export default Questionarie;
-
-{
-  /* <div className="flex justify-between items-center relative h-10 border-1 mt-10">
-  {(progress > 25 || dobShow) && (
-    <IconButton
-      onClick={() => {
-        setDobShow("");
-        setError(false);
-        setProgress((p) => (p > 25 ? p - 25 : 25));
-      }}
-      style={{ border: "1px solid lightgray" }}
-      className="p-4 hover:bg-gray-300 relative"
-    >
-      <ArrowBackIcon />
-    </IconButton>
-  )}
-  <Button
-    disableRipple
-    disableTouchRipple
-    ref={ref}
-    className="absolute right-0 continue_btn text-white"
-    onClick={() => {
-      // if (correct()) {
-      if (
-        (progress === 25 && !dobShow) ||
-        (progress === 50 && !(dobShow == "benefits")) ||
-        (progress === 75 && !/(coverage2|benefits)/.test(dobShow)) ||
-        (progress === 100 && !/(email|coverage2)/.test(dobShow))
-      ) {
-        setDobShow(
-          (p) =>
-            (progress === 25 && "dob") ||
-            (progress === 50 && "benefits") ||
-            (progress === 100 &&
-              ((p == "lovedcontact" && "phone") ||
-                (p == "phone" && "address") ||
-                (p == "address" && "zip") ||
-                (p == "zip" && "email") ||
-                (p == "email" && "email") ||
-                "lovedcontact")) ||
-            (progress === 75 &&
-              (dobShow == "coverage" ? "coverage2" : "coverage")) ||
-            ""
-        );
-      } else {
-        setDobShow((p) => (p == "phone" ? "phone" : ""));
-        setProgress((p: number) => (p == 100 ? 100 : p + 25));
-      }
-      // }
-    }}
-  >
-    Continue <ArrowForwardIcon className="text-white ml-2" color="secondary" />
-  </Button>
-</div>; */
-}

@@ -88,7 +88,9 @@ function AskPhone({
         <Button
           disableRipple
           disableTouchRipple
-          className="absolute right-0 continue_btn text-white"
+          style={{ position: "absolute", right: 0, color: "white" }}
+          className="absolute right-0 continue_btn"
+          // className="absolute right-0 continue_btn text-white"
           onClick={() => (value ? onContinue() : setErr(true))}
         >
           Continue{" "}

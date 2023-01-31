@@ -110,15 +110,7 @@ a {
   text-decoration: none;
 }
 
-.continue_btn {
-  background-color: #0755db;
-  height: 60px;
-  padding: 20px;
-  border-radius: 2.5rem;
-}
-.continue_btn:hover {
-  background-color: #002f80;
-}
+/* .continue */
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
