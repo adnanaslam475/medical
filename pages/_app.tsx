@@ -1,6 +1,6 @@
+import type { AppProps } from "next/app";
 import "../styles/globals.css";
 import "../styles/base.scss";
-import type { AppProps } from "next/app";
 
 import Router from "next/router";
 import { useEffect } from "react";
@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
     // import("tw-elements");
     // import("tw-elements");
     const use = async () => {
-      (await import("tw-elements" as any)).default as any;
+      (await import("tw-elements" as any)).default;
     };
     use();
   }, []);
