@@ -68,7 +68,8 @@ function RadioStep({
             handleChange(name, v);
             setErr(false);
           }}
-          className="rounded-full border-gray-500 mt-5 cursor-pointer h-14 flex items-center mb-5 radiotrans"
+          // .border-gray-500
+          className="rounded-full mt-5 cursor-pointer h-14 flex items-center mb-5 radiotrans"
           style={{
             border: `1px solid ${err ? "red" : "lightgray"}`,
             transition: ".5s",

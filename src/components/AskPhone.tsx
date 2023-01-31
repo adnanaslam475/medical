@@ -50,7 +50,7 @@ function AskPhone({
         }}
         InputProps={{
           style: {
-            height: "62px",
+            height: "62px inherit",
             borderRadius: "1rem",
             ...(err && {
               border: `1px solid #DE2654`,
@@ -69,7 +69,7 @@ function AskPhone({
 
       <Alert
         severity="error"
-        className="items-center w-full mt-4 rounded-2xl h-16 text-black redalert"
+        className="items-center w-full mt-4 rounded-2xl h-16 redalert"
         icon={<Image src={Sheild} alt="" className="" />}
       >
         {alert}

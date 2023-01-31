@@ -70,7 +70,7 @@ function Datetimestep({
             type="number"
             InputProps={{
               style: {
-                height: "60px",
+                height: "60px inherit",
                 width: "100% auto",
                 ...(err == "Year" && {
                   border: `1px solid #DE2654`,

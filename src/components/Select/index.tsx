@@ -42,7 +42,6 @@ function ReusableSelect({
 }: Props) {
   const [open, setOPen] = useState(false);
 
-  console.log("ReusableSelect", value);
 
   return (
     <ReactSelect

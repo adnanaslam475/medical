@@ -29,7 +29,6 @@ function AskName({
   onContinue,
   progress,
 }: Props) {
-  console.log("dobShow", dobShow);
   const [err, setErr] = useState("");
 
   const a: any = !dobShow
@@ -41,7 +40,6 @@ function AskName({
         { p: "First name", i: "lovedFirstName", s: "mr-2" },
         { p: "Last name", i: "lovedLastName", s: "ml-2" },
       ];
-  console.log("setErr", err);
 
   return (
     <>
@@ -60,7 +58,7 @@ function AskName({
               value={values[v.i]}
               InputProps={{
                 style: {
-                  height: "62px",
+                  height: "62px inherit",
                   ...(err == v.p && {
                     border: `1px solid #DE2654`,
                   }),
@@ -81,7 +79,7 @@ function AskName({
       </Grid>
       <Alert
         severity="error"
-        className="items-center w-full mt-4 rounded-2xl h-16 text-black redalert"
+        className="items-center w-full mt-4 rounded-2xl h-16 redalert"
         icon={<Image src={Sheild} alt="" className="" />}
       >
         {alert}
