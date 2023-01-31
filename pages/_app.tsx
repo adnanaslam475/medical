@@ -26,6 +26,7 @@ Router.events.on("routeChangeStart", routeChange);
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     // import("tw-elements");
+    // import("tw-elements");
     const use = async () => {
       (await import("tw-elements")).default as any;
     };
