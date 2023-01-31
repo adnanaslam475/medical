@@ -111,6 +111,7 @@ function RadioStep({
         <Button
           disableRipple
           disableTouchRipple
+          style={{ position: "absolute", right: 0, color: "white" }}
           className="absolute right-0 continue_btn text-white"
           onClick={() =>
             values[name] || /(eligible1|coverage2)/.test(name)

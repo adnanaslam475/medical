@@ -24,14 +24,14 @@ Router.events.on("routeChangeComplete", routeChange);
 Router.events.on("routeChangeStart", routeChange);
 
 export default function App({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    // import("tw-elements");
-    // import("tw-elements");
-    const use = async () => {
-      (await import("tw-elements" as any)).default;
-    };
-    use();
-  }, []);
+  // useEffect(() => {
+  //   // import("tw-elements");
+  //   // import("tw-elements");
+  //   const use = async () => {
+  //     (await import("tw-elements" as any)).default;
+  //   };
+  //   use();
+  // }, []);
 
   return <Component {...pageProps} />;
 }
