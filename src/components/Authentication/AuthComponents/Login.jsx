@@ -29,22 +29,29 @@ function Login({ setView, onSlide, onFinish, view }) {
 
   const { isSubmitting, errors, isLoading, defaultValues } = formState;
   console.log("formState", formState);
+
   const loginsubmit = async (data) => {
     console.log("data", data);
     try {
-      const res = await fetch(
-        "https://onecloudapi.azurewebsites.net/api/v1/account/loginDummy?userID=abc",
-        {
-          method: "POST",
-          mode: "no-cors",
-          // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-          // credentials: "same-origin", // include, *same-origin, omit
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data), // body data type must match "Content-Type" header
-        }
-      );
+      // await this.axios.post(`http://localhost:1337/api/auth/local/register`, {
+      //                           name: this.name,
+      //                           password: this.password,
+      //                           email: this.email,
+      //                           username: this.username
+      //                       })
+      const res = await fetch("http://localhost:1337/api/auth/local", {
+        method: "POST",
+        mode: "no-cors",
+        // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        // credentials: "same-origin", // include, *same-origin, omit
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: {
+          identifier: data.email,
+          password: data.password,
+        }, // body data type must match "Content-Type" header
+      });
       const datas = await res.json();
       console.log("re", datas);
     } catch (error) {

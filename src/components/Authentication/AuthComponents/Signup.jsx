@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Typography } from "antd";
-
+import axios from "axios";
 import {
   FormControl,
   IconButton,
@@ -21,9 +21,10 @@ const schema = object().shape({
 });
 
 function Signup({ setView, onSlide, view, onFinish }) {
-  const { register, handleSubmit, formState, reset } = useForm({
+  const { register, handleSubmit, formState, setError, reset } = useForm({
     resolver: yupResolver(schema),
   });
+
   console.log("Signupview", view);
 
   const [showPassword, setShowPassword] = useState(false);
@@ -33,6 +34,39 @@ function Signup({ setView, onSlide, view, onFinish }) {
   useEffect(() => {
     reset();
   }, [view]);
+
+  const signup = async (data) => {
+    console.log("data", data);
+    try {
+      const datas = await axios.post(
+        `http://localhost:1337/api/auth/local/register`,
+        {
+          name: "this.name",
+          password: "Whis.password",
+          email: "Whis.password@gma.com",
+          username: "this.username",
+        }
+      );
+
+      // const res = await fetch("http://localhost:1337/api/auth/local", {
+      //   method: "POST",
+      //   mode: "no-cors",
+      //   // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      //   // credentials: "same-origin", // include, *same-origin, omit
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     identifier: data.email,
+      //     password: data.password,
+      //   }), // body data type must match "Content-Type" header
+      // });
+      // const datas = await res.json();
+      console.log("re", datas);
+    } catch (error) {
+      console.log("ererre", error);
+    }
+  };
 
   return (
     <div
@@ -49,7 +83,7 @@ function Signup({ setView, onSlide, view, onFinish }) {
         Sign up for free!
       </Title>
       <form
-        onSubmit={handleSubmit(onFinish)}
+        onSubmit={handleSubmit(signup, setError)}
         className="login-form flex flex-col items-center justify-center mt-6"
       >
         {[
